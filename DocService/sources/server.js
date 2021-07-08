@@ -42,6 +42,7 @@ const fs = require('fs');
 
 const express = require('express');
 const http = require('http');
+const https = require('https');
 const urlModule = require('url');
 const path = require('path');
 const bodyParser = require("body-parser");
@@ -61,9 +62,19 @@ const cfgWopiEnable = configCommon.get('wopi.enable');
 const cfgHtmlTemplate = configCommon.get('wopi.htmlTemplate');
 
 const app = express();
-app.set("views", cfgHtmlTemplate);
-app.set("view engine", "ejs");
-const server = http.createServer(app);
+
+let server = null;
+
+if (config.has('ssl')) {
+	const privateKey = fs.readFileSync(config.get('ssl.key')).toString();
+	const certificateKey = fs.readFileSync(config.get('ssl.cert')).toString();
+	//See detailed options format here: http://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener
+	const options = {key: privateKey, cert: certificateKey};
+
+	server = https.createServer(options, app);
+} else {
+	server = http.createServer(app);
+}
 
 let licenseInfo, licenseOriginal, updatePluginsTime, userPlugins, pluginsLoaded;
 
