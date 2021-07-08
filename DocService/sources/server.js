@@ -42,6 +42,7 @@ const fs = require('fs');
 
 const express = require('express');
 const http = require('http');
+const https = require('https');
 const urlModule = require('url');
 const path = require('path');
 const bodyParser = require("body-parser");
@@ -69,11 +70,19 @@ const cfgLicenseFile = configCommon.get('license.license_file');
 const cfgDownloadMaxBytes = configCommon.get('FileConverter.converter.maxDownloadBytes');
 
 const app = express();
-app.disable('x-powered-by');
-//path.resolve uses __dirname by default(unexpected path in pkg)
-app.set("views", path.resolve(process.cwd(), cfgHtmlTemplate));
-app.set("view engine", "ejs");
-const server = http.createServer(app);
+
+let server = null;
+
+if (config.has('ssl')) {
+	const privateKey = fs.readFileSync(config.get('ssl.key')).toString();
+	const certificateKey = fs.readFileSync(config.get('ssl.cert')).toString();
+	//See detailed options format here: http://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener
+	const options = {key: privateKey, cert: certificateKey};
+
+	server = https.createServer(options, app);
+} else {
+	server = http.createServer(app);
+}
 
 let licenseInfo, licenseOriginal, updatePluginsTime, userPlugins, pluginsLoaded;
 
