@@ -58,6 +58,7 @@ const utils = require('./../../Common/sources/utils');
 const commonDefines = require('./../../Common/sources/commondefines');
 const operationContext = require('./../../Common/sources/operationContext');
 const tenantManager = require('./../../Common/sources/tenantManager');
+<<<<<<< HEAD
 const staticRouter = require('./routes/static');
 const ms = require('ms');
 
