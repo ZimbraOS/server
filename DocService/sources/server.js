@@ -60,6 +60,20 @@ const commonDefines = require('./../../Common/sources/commondefines');
 const operationContext = require('./../../Common/sources/operationContext');
 const tenantManager = require('./../../Common/sources/tenantManager');
 const configStorage = configCommon.get('storage');
+const app = express();
+
+let server = null;
+
+if (config.has('ssl')) {
+	const privateKey = fs.readFileSync(config.get('ssl.key')).toString();
+	const certificateKey = fs.readFileSync(config.get('ssl.cert')).toString();
+	//See detailed options format here: http://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener
+	const options = {key: privateKey, cert: certificateKey};
+
+	server = https.createServer(options, app);
+} else {
+	server = http.createServer(app);
+}
 
 const cfgWopiEnable = configCommon.get('wopi.enable');
 const cfgHtmlTemplate = configCommon.get('wopi.htmlTemplate');
