@@ -26,7 +26,7 @@ stage-zimbra-onlyoffice-pkg: downloads
 	rm -rf build/stage/zimbra-onlyoffice/opt/zimbra/onlyoffice/._.DS_Store
 	
 zimbra-onlyoffice-pkg: stage-zimbra-onlyoffice-pkg
-	../zm-pkg-tool/pkg-build.pl \
+	./pkg-build.pl \
         --pkg-version=$(ONLY_OFFICE_VERSION).$(shell git log --format=%at -1) \
         --pkg-release=1 \
         --pkg-name=zimbra-onlyoffice \
