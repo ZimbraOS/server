@@ -10,7 +10,7 @@ references:
          - run: 
             name: Checking out dependencies
             command: |
-               git clone -b develop --single-branch https://github.com/Zimbra/zm-pkg-tool.git ~/zm-pkg-tool
+               git clone -b hotfix/onlyoffice_build --single-branch https://github.com/Zimbra/zm-pkg-tool.git ~/zm-pkg-tool
                echo "BUILD_NO=$CIRCLE_BUILD_NUM" > config.build
          - persist_to_workspace:
             root: ..
@@ -25,6 +25,7 @@ references:
          - run:
             name: Creating build
             command: make -f Makefile.build
+            command: cat build/tmp/zimbra-onlyoffice/debian/rules
             no_output_timeout: 30m
          - store_artifacts:
             path: build/dist
