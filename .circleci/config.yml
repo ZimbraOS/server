@@ -10,7 +10,7 @@ references:
          - run: 
             name: Checking out dependencies
             command: |
-               git clone -b hotfix/speed-up-debian-package-creation --single-branch https://github.com/Zimbra/zm-pkg-tool.git ~/zm-pkg-tool
+               git clone -b develop --single-branch https://github.com/Zimbra/zm-pkg-tool.git ~/zm-pkg-tool
                echo "BUILD_NO=$CIRCLE_BUILD_NUM" > config.build
          - persist_to_workspace:
             root: ..
@@ -112,23 +112,11 @@ workflows:
          - build_u20:
             requires:
                - checkout
-         - build_u18:
-            requires:
-               - checkout
-         - build_c8:
-            requires:
-               - checkout
-         - build_c7:
-            requires:
-               - checkout
 
          - deploy_s3_hold:
             type: approval
             requires:
                - build_u20
-               - build_u18
-               - build_c8
-               - build_c7
 
          - deploy_s3:
             context:
