@@ -24,8 +24,7 @@ references:
             at: ..
          - run:
             name: Creating build
-            command: make -f Makefile.build
-            command: cat build/tmp/zimbra-onlyoffice/debian/rules
+            command: make -f Makefile.build;cat build/tmp/zimbra-onlyoffice/debian/rules
             no_output_timeout: 30m
          - store_artifacts:
             path: build/dist
