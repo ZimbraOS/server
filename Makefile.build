@@ -37,7 +37,7 @@ zimbra-onlyoffice-pkg: stage-zimbra-onlyoffice-pkg
 downloads:
 	mkdir -p downloads
 	wget -O downloads/zimbra-onlyoffice.tar.gz $(ONLY_OFFICE_URL)
-	cd downloads/; tar -xzf zimbra-onlyoffice.tar.gz
+	cd downloads/; tar -xf zimbra-onlyoffice.tar.gz
 	mv downloads/zimbra-onlyoffice downloads/onlyoffice
 
 ########################################################################################################
