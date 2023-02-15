@@ -667,7 +667,7 @@ sub Build()
       {
          chdir("$CFG{OUT_TEMP_DIR}/$CFG{PKG_NAME}");
          print "$CWD \n";
-         System( "dpkg-buildpackage -b", @pkg_type_opts );
+         System( "dpkg-buildpackage", @pkg_type_opts );
          chdir($CWD);
       }
 

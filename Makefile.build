@@ -30,6 +30,7 @@ zimbra-onlyoffice-pkg: stage-zimbra-onlyoffice-pkg
         --pkg-version=$(ONLY_OFFICE_VERSION).$(shell git log --format=%at -1) \
         --pkg-release=1 \
         --pkg-name=zimbra-onlyoffice \
+	--out-type=binary \
         --pkg-summary="Zimbra onlyoffice package" \
 	--pkg-installs='/opt/zimbra/onlyoffice/*'
 		
