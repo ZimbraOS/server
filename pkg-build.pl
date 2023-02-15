@@ -660,6 +660,8 @@ sub Build()
       print $fd "	cp -r \$\$(pwd)/opt/zimbra/onlyoffice/documentserver/server/DocService/docservice \$\$(pwd)/debian/zimbra-onlyoffice/opt/zimbra/onlyoffice/documentserver/server/DocService/docservice\n";
       print $fd "override_dh_strip_nondeterminism:\n";
       print $fd "override_dh_shlibdeps:\n";
+      print $fd "override_dh_builddeb:\n";
+      print $fd "	dh_builddeb -- -Zgzip\n";
       close($fd);
 
       System( "cp", "-a", $_, "$CFG{OUT_TEMP_DIR}/$CFG{PKG_NAME}/@{[basename $_]}" ) foreach glob("$CFG{OUT_STAGE_DIR}/$CFG{PKG_NAME}/*");
