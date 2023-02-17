@@ -64,7 +64,7 @@
   },
   "SpellChecker": {
     "server": {
-      "dictDir": "/opt/zimbra/onlyoffice/documentserver/server/SpellChecker/dictionaries"
+      "dictDir": "/opt/zimbra/onlyoffice/documentserver/dictionaries"
     }
   }
 }
