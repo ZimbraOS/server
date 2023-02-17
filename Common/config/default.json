@@ -249,7 +249,7 @@
 				"uri": "/web-apps/apps/common/main/resources/themes"
 			},
 			"editor":{
-				"spellcheckerUrl": "/spellchecker",
+				"spellcheckerUrl": "",
 				"reconnection":{
 					"attempts": 50,
 					"delay": "2s"
