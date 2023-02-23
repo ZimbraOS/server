@@ -26,6 +26,7 @@ USE onlyoffice;
 --
 
 CREATE TABLE IF NOT EXISTS `doc_changes` (
+  `tenant` varchar(255) NOT NULL,
   `id` varchar(255) NOT NULL,
   `change_id` int(10) unsigned NOT NULL,
   `user_id` varchar(255) NOT NULL,
@@ -33,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `doc_changes` (
   `user_name` varchar(255) NOT NULL,
   `change_data` longtext NOT NULL,
   `change_date` datetime NOT NULL,
-  PRIMARY KEY (`id`,`change_id`)
+  PRIMARY KEY (`tenant`, `id`,`change_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -43,21 +44,50 @@ CREATE TABLE IF NOT EXISTS `doc_changes` (
 /*!40000 ALTER TABLE `doc_changes` DISABLE KEYS */;
 /*!40000 ALTER TABLE `doc_changes` ENABLE KEYS */;
 
+
+--
+-- Definition of table `doc_changes`
+--
+
+CREATE TABLE IF NOT EXISTS `doc_changes2` (
+  `tenant` varchar(255) NOT NULL,
+  `id` varchar(255) NOT NULL,
+  `change_id` int(10) unsigned NOT NULL,
+  `user_id` varchar(255) NOT NULL,
+  `user_id_original` varchar(255) NOT NULL,
+  `user_name` varchar(255) NOT NULL,
+  `change_data` longblob NOT NULL,
+  `change_date` datetime NOT NULL,
+  PRIMARY KEY (`tenant`, `id`,`change_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `doc_changes`
+--
+
+/*!40000 ALTER TABLE `doc_changes2` DISABLE KEYS */;
+/*!40000 ALTER TABLE `doc_changes2` ENABLE KEYS */;
+
 --
 -- Definition of table `task_result`
 --
 
 CREATE TABLE IF NOT EXISTS `task_result` (
+  `tenant` varchar(255) NOT NULL,
   `id` varchar(255) NOT NULL,
   `status` tinyint(3) NOT NULL,
   `status_info` int(10) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_open_date` datetime NOT NULL,
   `user_index` int(10) unsigned NOT NULL DEFAULT 1,
   `change_id` int(10) unsigned NOT NULL DEFAULT 0,
   `callback` longtext NOT NULL,
   `baseurl` text NOT NULL,
-  PRIMARY KEY (`id`)
+  `password` longtext NULL,
+  `additional` longtext NULL,
+  PRIMARY KEY (`tenant`, `id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 --
 -- Dumping data for table `task_result`
