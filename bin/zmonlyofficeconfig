@@ -25,8 +25,15 @@ defaultjson_path="/opt/zimbra/onlyoffice/documentserver/server/Common/config/def
 mysql_port=7306
 zimbra_mysql_user="zimbra"
 zimbra_mysql_password=""
-server_crt="/opt/zimbra/ssl/zimbra/server/server.crt"
-server_key="/opt/zimbra/ssl/zimbra/server/server.key"
+
+# Check for commercial certificates
+if [ -f /opt/zimbra/ssl/zimbra/commercial/commercial.crt ] && [ -f /opt/zimbra/ssl/zimbra/commercial/commercial.key ]; then
+  server_crt="/opt/zimbra/ssl/zimbra/commercial/commercial.crt"
+  server_key="/opt/zimbra/ssl/zimbra/commercial/commercial.key"
+else
+  server_crt="/opt/zimbra/ssl/zimbra/server/server.crt"
+  server_key="/opt/zimbra/ssl/zimbra/server/server.key"
+fi
 
 STATUS=0
 
@@ -38,6 +45,7 @@ usage() {
   echo "new                     Configure Onlyoffice on the server"
   echo "update-jwt-secret arg0  Update Onlyoffice server's jwt secret with the passed value"
   echo "update-db               Update Onlyoffice server's DB connection details from config"
+  echo "update-certificate      Update Onlyoffice server's certificate paths"
   echo ""
   exit
 }
@@ -239,6 +247,12 @@ case "$type" in
     update_db_config
     exit $STATUS
   ;;
+
+  update-certificate )
+    update_certificate_path
+    exit $STATUS
+  ;;
+
   *)
     usage
     exit 1
